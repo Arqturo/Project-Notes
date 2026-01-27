@@ -8,13 +8,15 @@ This project was developed as a technical exercise and follows professional back
 
 ## Features
 
+### Phase 1 – Notes
+
 - Create notes
 - Edit notes
 - Delete notes
-- File notes
-- Unfile notes
+
+### Phase 2 – Categories (Extra)
+
 - Assign categories to notes
-- Dark mode
 
 ---
 
