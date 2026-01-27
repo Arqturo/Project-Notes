@@ -18,9 +18,6 @@ export class NotesService {
     private readonly categoryRepository: Repository<Category>,
   ) {}
 
-  // ======================
-  // CREATE
-  // ======================
   async create(dto: CreateNoteDto) {
     const note = this.noteRepository.create({
       title: dto.title,
@@ -41,9 +38,6 @@ export class NotesService {
     return this.noteRepository.save(note);
   }
 
-  // ======================
-  // READ
-  // ======================
   findActive() {
     return this.noteRepository.find({
       where: { isArchived: false },
@@ -58,9 +52,6 @@ export class NotesService {
     });
   }
 
-  // ======================
-  // UPDATE
-  // ======================
   async update(id: number, dto: UpdateNoteDto) {
     const note = await this.noteRepository.findOne({
       where: { id },
@@ -79,7 +70,6 @@ export class NotesService {
       note.content = dto.content;
     }
 
-    // ⭐ CLAVE PARA CATEGORÍAS
     if (dto.categoryId !== undefined) {
       if (dto.categoryId === null) {
         note.categories = [];
@@ -95,12 +85,30 @@ export class NotesService {
     return this.noteRepository.save(note);
   }
 
-  archive(id: number) {
-    return this.noteRepository.update(id, { isArchived: true });
+  async archive(id: number): Promise<Note> {
+    const note = await this.noteRepository.findOne({
+      where: { id },
+    });
+
+    if (!note) {
+      throw new NotFoundException("Note not found");
+    }
+
+    note.isArchived = true;
+    return this.noteRepository.save(note);
   }
 
-  unarchive(id: number) {
-    return this.noteRepository.update(id, { isArchived: false });
+  async unarchive(id: number): Promise<Note> {
+    const note = await this.noteRepository.findOne({
+      where: { id },
+    });
+
+    if (!note) {
+      throw new NotFoundException("Note not found");
+    }
+
+    note.isArchived = false;
+    return this.noteRepository.save(note);
   }
 
   async remove(id: number) {

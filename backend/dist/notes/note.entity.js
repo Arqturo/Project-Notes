@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", String)
 ], Note.prototype, "title", void 0);
 __decorate([
-    (0, typeorm_1.Column)("text"),
+    (0, typeorm_1.Column)("text", { nullable: true }),
     __metadata("design:type", String)
 ], Note.prototype, "content", void 0);
 __decorate([

@@ -9,26 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateNoteDto = void 0;
+exports.CreateCategoryDto = void 0;
 const class_validator_1 = require("class-validator");
-class CreateNoteDto {
-    title;
-    content;
-    categoryId;
+class CreateCategoryDto {
+    name;
 }
-exports.CreateNoteDto = CreateNoteDto;
+exports.CreateCategoryDto = CreateCategoryDto;
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(2),
     __metadata("design:type", String)
-], CreateNoteDto.prototype, "title", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateNoteDto.prototype, "content", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
-], CreateNoteDto.prototype, "categoryId", void 0);
-//# sourceMappingURL=create-note.dto.js.map
+], CreateCategoryDto.prototype, "name", void 0);
+//# sourceMappingURL=create-category.dto.js.map

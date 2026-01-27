@@ -31,6 +31,6 @@ __decorate([
     __metadata("design:type", Array)
 ], Category.prototype, "notes", void 0);
 exports.Category = Category = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)("categories")
 ], Category);
 //# sourceMappingURL=category.entity.js.map

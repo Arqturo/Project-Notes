@@ -14,8 +14,7 @@ const class_validator_1 = require("class-validator");
 class UpdateNoteDto {
     title;
     content;
-    isArchived;
-    categoryIds;
+    categoryId;
 }
 exports.UpdateNoteDto = UpdateNoteDto;
 __decorate([
@@ -30,13 +29,7 @@ __decorate([
 ], UpdateNoteDto.prototype, "content", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsBoolean)(),
-    __metadata("design:type", Boolean)
-], UpdateNoteDto.prototype, "isArchived", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsArray)(),
-    (0, class_validator_1.IsNumber)({}, { each: true }),
-    __metadata("design:type", Array)
-], UpdateNoteDto.prototype, "categoryIds", void 0);
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], UpdateNoteDto.prototype, "categoryId", void 0);
 //# sourceMappingURL=update-note.dto.js.map

@@ -1,7 +1,9 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+
 import { Category } from "./category.entity";
+import { CreateCategoryDto } from "./dto/create-category.dto";
 
 @Injectable()
 export class CategoriesService {
@@ -10,20 +12,46 @@ export class CategoriesService {
     private readonly categoryRepository: Repository<Category>,
   ) {}
 
-  create(name: string) {
-    const category = this.categoryRepository.create({ name });
+  // ======================
+  // CREATE
+  // ======================
+  async create(dto: CreateCategoryDto): Promise<Category> {
+    const category = this.categoryRepository.create({
+      name: dto.name,
+    });
+
     return this.categoryRepository.save(category);
   }
 
-  findAll() {
+  // ======================
+  // READ
+  // ======================
+  async findAll(): Promise<Category[]> {
     return this.categoryRepository.find({
-      order: { name: "ASC" },
+      order: { id: "ASC" },
     });
   }
 
-  findByName(name: string) {
-    return this.categoryRepository.findOne({
-      where: { name },
+  // ======================
+  // DELETE
+  // ======================
+  async remove(id: number): Promise<{ deleted: boolean }> {
+    const category = await this.categoryRepository.findOne({
+      where: { id },
+      relations: ["notes"],
     });
+
+    if (!category) {
+      throw new NotFoundException("Category not found");
+    }
+
+    // evita borrar categorías que tengan notas
+    if (category.notes.length > 0) {
+      throw new Error("Cannot delete category because it is assigned to notes");
+    }
+
+    await this.categoryRepository.delete(id);
+
+    return { deleted: true };
   }
 }

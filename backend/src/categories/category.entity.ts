@@ -1,8 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
-
 import { Note } from "../notes/note.entity";
 
-@Entity()
+@Entity("categories")
 export class Category {
   @PrimaryGeneratedColumn()
   id: number;

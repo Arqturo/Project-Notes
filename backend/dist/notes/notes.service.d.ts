@@ -10,7 +10,6 @@ export declare class NotesService {
     create(dto: CreateNoteDto): Promise<Note>;
     findActive(): Promise<Note[]>;
     findArchived(): Promise<Note[]>;
-    findOne(id: number): Promise<Note>;
     update(id: number, dto: UpdateNoteDto): Promise<Note>;
     archive(id: number): Promise<Note>;
     unarchive(id: number): Promise<Note>;

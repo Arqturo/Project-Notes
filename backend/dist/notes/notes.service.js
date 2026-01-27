@@ -31,27 +31,29 @@ let NotesService = class NotesService {
             content: dto.content,
             isArchived: false,
         });
-        if (dto.categoryIds?.length) {
-            const categories = await this.categoryRepository.findByIds(dto.categoryIds);
-            note.categories = categories;
+        if (dto.categoryId) {
+            const category = await this.categoryRepository.findOne({
+                where: { id: dto.categoryId },
+            });
+            if (category) {
+                note.categories = [category];
+            }
         }
         return this.noteRepository.save(note);
     }
     findActive() {
         return this.noteRepository.find({
             where: { isArchived: false },
-            relations: ["categories"],
             order: { createdAt: "DESC" },
         });
     }
     findArchived() {
         return this.noteRepository.find({
             where: { isArchived: true },
-            relations: ["categories"],
             order: { createdAt: "DESC" },
         });
     }
-    async findOne(id) {
+    async update(id, dto) {
         const note = await this.noteRepository.findOne({
             where: { id },
             relations: ["categories"],
@@ -59,32 +61,42 @@ let NotesService = class NotesService {
         if (!note) {
             throw new common_1.NotFoundException("Note not found");
         }
-        return note;
-    }
-    async update(id, dto) {
-        const note = await this.findOne(id);
         if (dto.title !== undefined) {
             note.title = dto.title;
         }
         if (dto.content !== undefined) {
             note.content = dto.content;
         }
-        if (dto.isArchived !== undefined) {
-            note.isArchived = dto.isArchived;
-        }
-        if (dto.categoryIds !== undefined) {
-            const categories = await this.categoryRepository.findByIds(dto.categoryIds);
-            note.categories = categories;
+        if (dto.categoryId !== undefined) {
+            if (dto.categoryId === null) {
+                note.categories = [];
+            }
+            else {
+                const category = await this.categoryRepository.findOne({
+                    where: { id: dto.categoryId },
+                });
+                note.categories = category ? [category] : [];
+            }
         }
         return this.noteRepository.save(note);
     }
     async archive(id) {
-        const note = await this.findOne(id);
+        const note = await this.noteRepository.findOne({
+            where: { id },
+        });
+        if (!note) {
+            throw new common_1.NotFoundException("Note not found");
+        }
         note.isArchived = true;
         return this.noteRepository.save(note);
     }
     async unarchive(id) {
-        const note = await this.findOne(id);
+        const note = await this.noteRepository.findOne({
+            where: { id },
+        });
+        if (!note) {
+            throw new common_1.NotFoundException("Note not found");
+        }
         note.isArchived = false;
         return this.noteRepository.save(note);
     }

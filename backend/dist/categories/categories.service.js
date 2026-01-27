@@ -22,19 +22,30 @@ let CategoriesService = class CategoriesService {
     constructor(categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
-    create(name) {
-        const category = this.categoryRepository.create({ name });
+    async create(dto) {
+        const category = this.categoryRepository.create({
+            name: dto.name,
+        });
         return this.categoryRepository.save(category);
     }
-    findAll() {
+    async findAll() {
         return this.categoryRepository.find({
-            order: { name: "ASC" },
+            order: { id: "ASC" },
         });
     }
-    findByName(name) {
-        return this.categoryRepository.findOne({
-            where: { name },
+    async remove(id) {
+        const category = await this.categoryRepository.findOne({
+            where: { id },
+            relations: ["notes"],
         });
+        if (!category) {
+            throw new common_1.NotFoundException("Category not found");
+        }
+        if (category.notes.length > 0) {
+            throw new Error("Cannot delete category because it is assigned to notes");
+        }
+        await this.categoryRepository.delete(id);
+        return { deleted: true };
     }
 };
 exports.CategoriesService = CategoriesService;
