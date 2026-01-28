@@ -1,0 +1,50 @@
+.categories-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 25px;
+}
+
+.category-form {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.category-form button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.categories-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.categories-container li {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 14px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.categories-container li button {
+  background: var(--danger);
+  border: none;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}

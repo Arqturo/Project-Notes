@@ -1,10 +1,11 @@
 import { api } from "./axios";
 import type { Note } from "../types/note";
 
-export const getNotes = async (): Promise<Note[]> => {
-  const res = await api.get("/notes");
-  return res.data;
-};
+interface NotePayload {
+  title: string;
+  content: string;
+  categoryId?: number;
+}
 
 export const getActiveNotes = async (): Promise<Note[]> => {
   const res = await api.get("/notes/active");
@@ -16,33 +17,14 @@ export const getArchivedNotes = async (): Promise<Note[]> => {
   return res.data;
 };
 
-export const createNote = (data: {
-  title: string;
-  content: string;
-  categoryId?: number;
-}) => {
-  return api.post("/notes", data);
-};
+export const createNote = (data: NotePayload) => api.post("/notes", data);
 
-export const updateNote = (
-  id: number,
-  data: {
-    title: string;
-    content: string;
-    categoryId?: number;
-  },
-) => {
-  return api.put(`/notes/${id}`, data);
-};
+export const updateNote = (id: number, data: NotePayload) =>
+  api.put(`/notes/${id}`, data);
 
-export const archiveNote = (id: number) => {
-  return api.patch(`/notes/${id}/archive`);
-};
+export const deleteNote = (id: number) => api.delete(`/notes/${id}`);
 
-export const unarchiveNote = (id: number) => {
-  return api.patch(`/notes/${id}/unarchive`);
-};
+export const archiveNote = (id: number) => api.patch(`/notes/${id}/archive`);
 
-export const deleteNote = (id: number) => {
-  return api.delete(`/notes/${id}`);
-};
+export const unarchiveNote = (id: number) =>
+  api.patch(`/notes/${id}/unarchive`);

@@ -1,0 +1,125 @@
+.notes-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 25px;
+}
+
+/* =====================
+   TABS
+===================== */
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.tabs button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  color: var(--text);
+}
+
+.tabs .active {
+  background: var(--primary);
+  color: white;
+}
+
+/* =====================
+   FORM
+===================== */
+
+.note-form {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-bottom: 30px;
+
+  display: grid;
+  gap: 12px;
+}
+
+/* =====================
+   GRID
+===================== */
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* =====================
+   CARD
+===================== */
+
+.note-card {
+  background: var(--card);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 15px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.note-card h3 {
+  margin: 0 0 10px;
+}
+
+.note-card p {
+  flex: 1;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* =====================
+   TAGS
+===================== */
+
+.tag {
+  display: inline-block;
+  background: var(--secondary);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+/* =====================
+   ACTIONS
+===================== */
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 6px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.actions button:first-child {
+  background: var(--primary);
+  color: #fff;
+}
+
+.actions button:nth-child(2) {
+  background: var(--warning);
+}
+
+.actions .danger {
+  background: var(--danger);
+  color: white;
+}

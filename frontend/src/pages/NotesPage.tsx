@@ -15,7 +15,13 @@ import {
 
 import { getCategories } from "../api/categories.api";
 
+import "../styles/notes.css";
+
 function NotesPage() {
+  // ======================
+  // STATE
+  // ======================
+
   const [notes, setNotes] = useState<Note[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [showArchived, setShowArchived] = useState(false);
@@ -26,9 +32,9 @@ function NotesPage() {
 
   const [editingNote, setEditingNote] = useState<Note | null>(null);
 
-  /* ======================
-     LOAD FUNCTIONS
-  ====================== */
+  // ======================
+  // LOADERS
+  // ======================
 
   const loadNotes = useCallback(async () => {
     const data = showArchived
@@ -43,9 +49,9 @@ function NotesPage() {
     setCategories(data);
   }, []);
 
-  /* ======================
-     EFFECTS
-  ====================== */
+  // ======================
+  // EFFECTS (SIN ERRORES)
+  // ======================
 
   useEffect(() => {
     loadNotes();
@@ -55,14 +61,12 @@ function NotesPage() {
     loadCategories();
   }, [loadCategories]);
 
-  /* ======================
-     CREATE / UPDATE
-  ====================== */
+  // ======================
+  // CREATE / UPDATE
+  // ======================
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!title.trim()) return;
 
     const payload = {
       title,
@@ -81,72 +85,77 @@ function NotesPage() {
     setCategoryId("");
     setEditingNote(null);
 
-    loadNotes();
+    await loadNotes();
   };
 
-  /* ======================
-     ACTIONS
-  ====================== */
+  // ======================
+  // ACTIONS
+  // ======================
 
   const handleEdit = (note: Note) => {
     setEditingNote(note);
     setTitle(note.title);
     setContent(note.content);
+
     setCategoryId(note.categories?.[0]?.id ?? "");
   };
 
   const handleDelete = async (id: number) => {
     await deleteNote(id);
-    loadNotes();
+    await loadNotes();
   };
 
   const handleArchive = async (id: number) => {
     await archiveNote(id);
-    loadNotes();
+    await loadNotes();
   };
 
   const handleUnarchive = async (id: number) => {
     await unarchiveNote(id);
-    loadNotes();
+    await loadNotes();
   };
 
-  /* ======================
-     RENDER
-  ====================== */
+  // ======================
+  // RENDER
+  // ======================
 
   return (
-    <div className="container">
-      <h1>📝 Notes App 📝</h1>
+    <div className="notes-container">
+      <h1 className="title">📝 Notes App</h1>
 
       {/* TABS */}
-      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+      <div className="tabs">
         <button
-          className={`btn ${!showArchived ? "btn-primary" : "btn-secondary"}`}
+          className={!showArchived ? "tab active" : "tab"}
           onClick={() => setShowArchived(false)}
         >
-          Active notes
+          Active Notes
         </button>
 
         <button
-          className={`btn ${showArchived ? "btn-primary" : "btn-secondary"}`}
+          className={showArchived ? "tab active" : "tab"}
           onClick={() => setShowArchived(true)}
         >
-          Archived notes
+          Archived Notes
         </button>
       </div>
 
       {/* FORM */}
       {!showArchived && (
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="note-form" onSubmit={handleSubmit}>
           <input
+            className="form-control"
             placeholder="Title"
             value={title}
+            required
             onChange={(e) => setTitle(e.target.value)}
           />
 
           <textarea
+            className="form-control"
             placeholder="Content"
             value={content}
+            required
             onChange={(e) => setContent(e.target.value)}
           />
 
@@ -156,7 +165,8 @@ function NotesPage() {
               setCategoryId(e.target.value === "" ? "" : Number(e.target.value))
             }
           >
-            <option value="">No category</option>
+            <option value="">Sin categoría</option>
+
             {categories.map((cat) => (
               <option key={cat.id} value={cat.id}>
                 {cat.name}
@@ -171,21 +181,23 @@ function NotesPage() {
       )}
 
       {/* NOTES */}
-      <div className="grid">
+      <div className="notes-grid">
         {notes.map((note) => (
-          <div key={note.id} className="card">
+          <div key={note.id} className="note-card">
             <h3>{note.title}</h3>
             <p>{note.content}</p>
 
-            <div style={{ marginBottom: "10px" }}>
-              {note.categories?.map((cat) => (
-                <span key={cat.id} className="badge">
-                  {cat.name}
-                </span>
-              ))}
+            <div className="tags">
+              <div>
+                {note.categories.map((cat) => (
+                  <span key={cat.id} className="tag">
+                    #{cat.name}
+                  </span>
+                ))}
+              </div>
             </div>
 
-            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            <div className="actions">
               {!note.isArchived && (
                 <>
                   <button
@@ -196,7 +208,7 @@ function NotesPage() {
                   </button>
 
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-warning"
                     onClick={() => handleArchive(note.id)}
                   >
                     Archive
@@ -206,7 +218,7 @@ function NotesPage() {
 
               {note.isArchived && (
                 <button
-                  className="btn btn-secondary"
+                  className="btn btn-success"
                   onClick={() => handleUnarchive(note.id)}
                 >
                   Unarchive
