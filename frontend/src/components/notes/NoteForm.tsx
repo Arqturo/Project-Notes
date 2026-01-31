@@ -57,11 +57,6 @@ const NoteForm = ({
 
   return (
     <form className="form note-form" onSubmit={handleSubmit}>
-      <h2 className="mb-4">📝 Notes</h2>
-      <h5 className="note-form__title">
-        {editingNote ? "✏️ Editar nota" : "➕ Nueva nota"}
-      </h5>
-
       <div className="note-form__field">
         <input
           className="form-control"

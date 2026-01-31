@@ -88,6 +88,8 @@ const NotesPage = () => {
 
   return (
     <div className="container py-4">
+      <NotesTabs active={activeTab} onChange={setActiveTab} />
+
       <NoteForm
         categories={categories}
         editingNote={editingNote}
@@ -96,13 +98,12 @@ const NotesPage = () => {
         onCancelEdit={() => setEditingNote(null)}
       />
 
-      <NotesTabs active={activeTab} onChange={setActiveTab} />
-
-      <div className="row g-3 mt-3">
+      <div className="task-list row g-3 mt-3">
         {(activeTab === "active" ? notes : archivedNotes).map((note) => (
           <div className="col-md-4" key={note.id}>
             <NoteCard
               note={note}
+              activeTab={activeTab}
               onEdit={() => setEditingNote(note)}
               onDelete={() => handleDelete(note.id)}
               onArchive={() => handleArchive(note.id)}

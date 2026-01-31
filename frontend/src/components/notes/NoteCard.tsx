@@ -2,6 +2,7 @@ import type { Note } from "../../types/note";
 
 interface Props {
   note: Note;
+  activeTab: "active" | "archived";
   onEdit: () => void;
   onDelete: () => void;
   onArchive?: () => void;
@@ -14,6 +15,7 @@ const NoteCard = ({
   onDelete,
   onArchive,
   onUnarchive,
+  activeTab,
 }: Props) => {
   return (
     <div className="note-card">
@@ -39,40 +41,40 @@ const NoteCard = ({
           <div className="note-card__actions-left">
             <button
               type="button"
-              className="btn btn-sm btn-outline-primary"
+              className="edit-btn btn btn-sm btn-outline-primary"
               onClick={onEdit}
             >
               ✏️ Editar
             </button>
 
+            {activeTab === "active" && (
+              <button
+                type="button"
+                className="second-btn btn btn-sm btn-outline-secondary"
+                onClick={onArchive}
+              >
+                📦 Archivar
+              </button>
+            )}
+
+            {activeTab === "archived" && (
+              <button
+                type="button"
+                className="second-btn btn btn-sm btn-outline-success"
+                onClick={onUnarchive}
+              >
+                ♻️ Restaurar
+              </button>
+            )}
+
             <button
               type="button"
-              className="btn btn-sm btn-outline-danger"
+              className="delete-btn btn btn-sm btn-outline-danger"
               onClick={onDelete}
             >
               🗑 Eliminar
             </button>
           </div>
-
-          {onArchive && (
-            <button
-              type="button"
-              className="btn btn-sm btn-outline-secondary"
-              onClick={onArchive}
-            >
-              📦 Archivar
-            </button>
-          )}
-
-          {onUnarchive && (
-            <button
-              type="button"
-              className="btn btn-sm btn-outline-success"
-              onClick={onUnarchive}
-            >
-              ♻️ Restaurar
-            </button>
-          )}
         </div>
       </div>
     </div>

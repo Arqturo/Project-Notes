@@ -5,15 +5,22 @@
 }
 
 .notes-tabs__btn {
-  padding: 0.5rem 1.25rem;
-  border-radius: var(--radius-md);
+  color: white;
+  padding: 8px 16px;
+  border-radius: var(--radius);
   border: none;
-  background-color: var(--bg-soft);
-  color: var(--text-muted);
+  cursor: pointer;
   transition: var(--transition);
+
+  background: var(--secondary);
+  color: white;
 }
 
-.notes-tabs__btn.active {
-  background-color: var(--primary);
+.notes-tabs__btn.is-active {
+  background: var(--primary);
   color: white;
+}
+
+.thirds {
+  padding: 0px 30px;
 }
