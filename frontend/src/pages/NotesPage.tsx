@@ -88,8 +88,6 @@ const NotesPage = () => {
 
   return (
     <div className="container py-4">
-      <h2 className="mb-4">📝 Notes</h2>
-
       <NoteForm
         categories={categories}
         editingNote={editingNote}
