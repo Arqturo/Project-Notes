@@ -37,19 +37,19 @@ const CategoryPanel = ({ categories, onCreate, onUpdate, onDelete }: Props) => {
     <div className="card shadow-sm rounded-4 fade-in">
       <div className="card-body p-4">
         {/* HEADER */}
-        <div className="d-flex justify-content-between align-items-center mb-4">
-          <h5 className="mb-0 fw-semibold">📂 Gestión de categorías</h5>
+
+        {/* FORM */}
+        <form
+          className="form note-form  row g-2 align-items-center mb-4"
+          onSubmit={handleSubmit}
+        >
+                <h2 className="mb-4">📂 Categorías</h2>
+                        <div className="d-flex justify-content-between align-items-center mb-4">
 
           {editingId !== null && (
             <span className="badge bg-warning text-dark">Editando</span>
           )}
         </div>
-
-        {/* FORM */}
-        <form
-          className="row g-2 align-items-center mb-4"
-          onSubmit={handleSubmit}
-        >
           <div className="col flex-grow-1">
             <input
               className="form-control form-control-lg"
@@ -77,7 +77,7 @@ const CategoryPanel = ({ categories, onCreate, onUpdate, onDelete }: Props) => {
         </form>
 
         {/* LIST */}
-        <ul className="list-group list-group-flush">
+        <div className="task-list row g-3 mt-3 list-group list-group-flush">
           {categories.length === 0 && (
             <li className="list-group-item text-muted text-center py-4">
               No hay categorías creadas
@@ -85,33 +85,38 @@ const CategoryPanel = ({ categories, onCreate, onUpdate, onDelete }: Props) => {
           )}
 
           {categories.map((cat) => (
-            <li
+            <div
               key={cat.id}
-              className="list-group-item d-flex justify-content-between align-items-center py-3"
+              className="col-md-4 list-group-item d-flex justify-content-between align-items-center py-3"
             >
+              <div className="note-card">
               <span className="fw-medium">{cat.name}</span>
 
               <div className="btn-group btn-group-sm">
+                <p className="note-card__content"></p>
+                <div className="note-card__actions-left">
                 <button
-                  className="btn btn-outline-primary"
+                  className="edit-btn btn btn-sm btn-outline-primary"
                   onClick={() => {
                     setEditingId(cat.id);
                     setName(cat.name);
                   }}
                 >
-                  ✏️ Editar
+                  Editar
                 </button>
 
                 <button
-                  className="btn btn-outline-danger"
+                  className="delete-btn btn btn-sm btn-outline-danger"
                   onClick={() => onDelete(cat.id)}
                 >
-                  🗑 Eliminar
+                  Eliminar
                 </button>
+                </div>
               </div>
-            </li>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );

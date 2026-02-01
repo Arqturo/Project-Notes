@@ -5,8 +5,10 @@
   --bg-main: #f4f6f8;
   --bg-card: #ffffff;
   --bg-soft: #eef2f7;
+  --risk: yellow;
 
   --text-main: #1f2937;
+  --text-button: white;
   --text-muted: #6b7280;
 
   --radius-lg: 16px;
@@ -16,6 +18,11 @@
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.1);
 
   --transition: all 0.25s ease;
+  --bt-secondary: #6c757e;
+}
+
+* {
+  transform: var(--transition);
 }
 
 :root {
@@ -32,4 +39,26 @@
   --radius: 6px;
   --transition: 0.2s ease;
   --font: system-ui, -apple-system, BlinkMacSystemFont;
+}
+
+#root {
+background-color: var(--bg);
+color: var(--text);
+transition: var(--transition);
+
+}
+
+body.dark {
+  --bg: #121212;
+  --text: #e0e0e0;
+  --card: #1e1e1e;
+  --border: #333333;
+  --primary: #4faafa;
+  --secondary: #acb6bf;
+  --danger: #ff6b69;
+  --text-main: white;
+  --text: white;
+  --bg-card: #1f1f1f;
+  --secondary: #adb6bf;
+  --bt-secondary: #adb6bf;
 }

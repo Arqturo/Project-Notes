@@ -14,6 +14,7 @@
 
   background: var(--secondary);
   color: white;
+  background-color: var(--bt-secondary);
 }
 
 .notes-tabs__btn.is-active {

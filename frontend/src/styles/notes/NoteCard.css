@@ -24,7 +24,7 @@
 }
 
 .note-card__content {
-  color: var(--text-muted);
+  color: var(--text);
   flex-grow: 1;
   margin-top: 0.5rem;
 }
