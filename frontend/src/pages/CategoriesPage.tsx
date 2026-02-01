@@ -40,8 +40,6 @@ const CategoriesPage = () => {
 
   return (
     <div className="container py-4">
-      <h2 className="mb-4">📂 Categorías</h2>
-
       <div className="row justify-content-center">
         <div className="col-md-6">
           <CategoryPanel

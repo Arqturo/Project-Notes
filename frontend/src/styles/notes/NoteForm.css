@@ -7,7 +7,6 @@
   margin-bottom: 30px;
 
   max-width: 1100px;
-  margin: auto;
   padding: 30px;
   padding-top: 0px;
 }
@@ -29,23 +28,34 @@
   border: none;
   cursor: pointer;
   transition: var(--transition);
+  color: var(--text-button);
 }
 
 .btn.btn-primary {
   background: var(--primary);
-  color: white;
+  color: var(--text-button);
   width: 100%;
 }
 
 .form input,
 .form textarea,
 .form select {
-  padding: 10px;
+  padding: 10px 0px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
   background: var(--card);
   color: var(--text);
   width: 100%;
+}
+
+.form select {
+  padding: 10px;
+}
+
+.form input::placeholder,
+.form textarea::placeholder
+ {
+  padding: 0px 10px;
 }
 
 .task-list.row.g-3.mt-3 {
@@ -61,22 +71,29 @@
 }
 
 .note-card__actions-left {
-  display: flex;
-  gap: 4%;
+    display: flex;
+        gap: 10px;
+    justify-content: space-between;
 }
 
 .edit-btn {
-  margin-right: auto;
-  background-color: white;
-  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 8px 8px;
+  background-color: var(--bt-secondary);
+  color: var(--text-button);
 }
 
 .second-btn {
-  background-color: yellow;
-  color: black;
+    padding: 8px 8px;
+
+  background-color: var(--primary);
+  color: var(--text-button);
+
 }
 
 .delete-btn {
-  background-color: red;
-  color: white;
+    padding: 8px 8px;
+
+  background-color: var(--danger);
+  color: var(--text-button);
+
 }

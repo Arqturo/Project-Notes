@@ -44,7 +44,7 @@ const NoteCard = ({
               className="edit-btn btn btn-sm btn-outline-primary"
               onClick={onEdit}
             >
-              ✏️ Editar
+              Editar
             </button>
 
             {activeTab === "active" && (
@@ -53,7 +53,7 @@ const NoteCard = ({
                 className="second-btn btn btn-sm btn-outline-secondary"
                 onClick={onArchive}
               >
-                📦 Archivar
+                Archivar
               </button>
             )}
 
@@ -63,7 +63,7 @@ const NoteCard = ({
                 className="second-btn btn btn-sm btn-outline-success"
                 onClick={onUnarchive}
               >
-                ♻️ Restaurar
+                Restaurar
               </button>
             )}
 
@@ -72,7 +72,7 @@ const NoteCard = ({
               className="delete-btn btn btn-sm btn-outline-danger"
               onClick={onDelete}
             >
-              🗑 Eliminar
+              Eliminar
             </button>
           </div>
         </div>

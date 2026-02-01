@@ -43,6 +43,8 @@
   padding: 16px 30px;
   background: #ffffff;
   border-bottom: 1px solid #ddd;
+  background-color: var(--bg-card);
+  border-color: var(--border);
 }
 
 .navbar-brand {
